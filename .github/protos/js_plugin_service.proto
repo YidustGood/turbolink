@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package Greeter;
+option go_package = "./Greeter";
+
+// JS插件服务
+service JsPluginService {
+  // 调用JS插件函数
+  rpc CallPluginFunction (CallFunctionRequest) returns (CallFunctionResponse) {}
+  
+  // 获取插件列表
+  rpc GetPluginList (GetPluginListRequest) returns (GetPluginListResponse) {}
+  
+  // 启用插件
+  rpc EnablePlugin (PluginRequest) returns (PluginResponse) {}
+  
+  // 禁用插件
+  rpc DisablePlugin (PluginRequest) returns (PluginResponse) {}
+  
+  // 热重载插件
+  rpc HotReloadPlugin (PluginRequest) returns (PluginResponse) {}
+}
+
+// 调用函数请求
+message CallFunctionRequest {
+  string plugin_name = 1; // 插件名称
+  string function_name = 2; // 函数名称
+  string payload = 3; // JSON格式的函数参数
+}
+
+// 调用函数响应
+message CallFunctionResponse {
+  int32 code = 1; // 状态码
+  string message = 2; // 消息
+  string data = 3; // JSON格式的返回数据
+  string execution_time = 4; // 执行时间
+}
+
+// 获取插件列表请求
+message GetPluginListRequest {
+  // 空请求
+}
+
+// 获取插件列表响应
+message GetPluginListResponse {
+  int32 code = 1; // 状态码
+  string message = 2; // 消息
+  string plugins = 3; // JSON格式的插件列表
+}
+
+// 插件请求
+message PluginRequest {
+  string plugin_name = 1; // 插件名称
+}
+
+// 插件响应
+message PluginResponse {
+  int32 code = 1; // 状态码
+  string message = 2; // 消息
+  string execution_time = 3; // 执行时间
+} 
